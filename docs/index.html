@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="is">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prótein fyrir peninginn · Krónan</title>
+<meta name="description" content="Hvar færðu mest prótein fyrir krónuna og fæstar kaloríur? 5.807 vörur úr Krónunni bornar saman miðað við 30 g prótein.">
+<meta property="og:title" content="Prótein fyrir peninginn">
+<meta property="og:description" content="Lambalifur, skyr og mysuprótein gefa ódýrasta próteinið í Krónunni. Berðu saman 5.807 vörur.">
+<meta name="theme-color" content="#183f32">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23183f32'/%3E%3Ctext x='9' y='23' font-size='20' font-family='sans-serif' font-weight='700' fill='%23d7ed9e'%3Ep.%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a href="./" class="brand"><span class="brandmark" aria-hidden="true">p.</span>Prótein fyrir peninginn</a>
+  <nav><a href="#bestu">Bestu kaup</a><a href="#graf">Graf</a><a href="#vorur">Allar vörur</a><a href="#adferd">Aðferð</a></nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <p class="eyebrow"><span class="dot"></span>Verð og næringargildi úr Krónunni · <span data-date>26. október 2026</span></p>
+      <h1>Hvar færðu mest prótein<br>fyrir krónuna?</h1>
+      <p class="lead">Allar tölur miðast við <strong>30 g prótein</strong>: hvað það kostar og hve margar kaloríur fylgja. Lægri stuðull er betri.</p>
+    </div>
+    <dl class="stats">
+      <div><dt>Vörur skoðaðar</dt><dd id="stat-total">5.807</dd></div>
+      <div><dt>Fá stuðul</dt><dd id="stat-ranked">3.945</dd></div>
+      <div><dt>Ódýrast fyrir 30 g</dt><dd id="stat-cheapest">71 kr.</dd></div>
+    </dl>
+  </section>
+
+  <section class="formula" aria-label="Stuðullinn">
+    <div class="formula-eq"><span>kr. fyrir 30 g prótein</span><b>×</b><span>kcal fyrir 30 g prótein</span><b>÷</b><span>1.000</span><b>=</b><span class="hl">stuðull</span></div>
+    <p>Verð og kaloríur vega jafnt: 10% ódýrara jafngildir 10% færri kaloríum. Stuðullinn metur ekki vítamín, trefjar eða gæði próteinsins.</p>
+  </section>
+
+  <section id="bestu" class="block">
+    <div class="block-head">
+      <div><h2>Bestu kaupin í hverjum flokki</h2><p>Vörur undir <span data-cap>400</span> kcal fyrir 30 g prótein. Smelltu á vöru til að sjá næringargildi.</p></div>
+    </div>
+    <div id="best-grid" class="best-grid" aria-live="polite"></div>
+  </section>
+
+  <section id="graf" class="block">
+    <div class="block-head">
+      <div><h2>Verð á móti kaloríum</h2><p>Hver punktur er vara. Neðar og til vinstri er betra; brotnu línurnar sýna jafnan stuðul. Sían í töflunni hér fyrir neðan stýrir líka grafinu.</p></div>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="chart-wrap"><svg id="chart" role="img" aria-label="Kr. og kcal fyrir 30 g prótein fyrir hverja vöru"></svg><div id="tip" class="tip" hidden></div></div>
+  </section>
+
+  <section id="vorur" class="block">
+    <div class="block-head">
+      <div><h2>Allar vörur</h2><p id="scope">Leitaðu, síaðu og raðaðu. Slóðin geymir síurnar svo þú getur deilt henni.</p></div>
+      <div class="head-actions"><button id="share" class="button subtle" type="button">Afrita hlekk</button><button id="download" class="button subtle" type="button">Sækja CSV ↓</button></div>
+    </div>
+
+    <div class="chips" id="type-chips" role="group" aria-label="Tegund"></div>
+
+    <div class="filters">
+      <label class="search"><span>Leita</span><input id="q" type="search" placeholder="Skyr, kjúklingur, baunir…" autocomplete="off"></label>
+      <label><span>Hámark kcal / 30 g prótein</span>
+        <select id="cap"><option value="150">150 kcal</option><option value="200">200 kcal</option><option value="300">300 kcal</option><option value="400" selected>400 kcal</option><option value="0">Ekkert hámark</option></select></label>
+      <label><span>Undirbúningur</span>
+        <select id="prep"><option value="">Allt</option><option value="ready">Tilbúið að borða</option><option value="cook">Þarf að elda</option><option value="mix">Þarf að blanda</option><option value="check">Sjá umbúðir</option></select></label>
+      <label><span>Raða eftir</span>
+        <select id="sort"><option value="score">Lægsti stuðull</option><option value="cost">Lægsta verð</option><option value="cal">Fæstar kaloríur</option><option value="name">Nafni A–Ö</option></select></label>
+      <label class="check"><input type="checkbox" id="unranked"><span>Sýna líka vörur án stuðuls</span></label>
+    </div>
+
+    <div class="resultbar"><span id="count" aria-live="polite">Hleð gögnum…</span><button id="reset" class="text-button" type="button">Hreinsa síur</button></div>
+    <div id="data-error" class="error" hidden role="alert">Ekki tókst að hlaða gögnunum. Endurhlaðið síðuna.</div>
+
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only">Vörur með verði og kaloríum fyrir 30 g prótein</caption>
+        <thead><tr><th scope="col" class="num">#</th><th scope="col">Vara</th><th scope="col" class="num">Magn</th><th scope="col" class="num">Kr.</th><th scope="col" class="num">kcal</th><th scope="col" class="num">Stuðull</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="table-bottom"><span id="shown"></span><button id="more" class="button" type="button">Sýna fleiri</button></div>
+  </section>
+
+  <section id="adferd" class="block method">
+    <h2>Aðferð og fyrirvarar</h2>
+    <div class="method-grid">
+      <div><h3>Gögnin</h3><p>Verð, pakkastærð og næringargildi voru sótt úr Krónu MCP 26. október 2026: 5.807 matvörur úr 220 flokkum. Þetta er mynd af einum degi, ekki lifandi verðvakt, og lagerstaða var ekki staðfest.</p></div>
+      <div><h3>Hverjar fá stuðul?</h3><p>3.945 vörur. Hinar vantar gögn (808), hafa ekkert prótein (580), ósamræmi í næringargildum (160) eða óljósa ætilega þyngd (314), t.d. túnfisk í dós og kjöt með beini.</p></div>
+      <div><h3>Selt ástand</h3><p>Allt miðast við vöruna eins og hún er seld: hrátt kjöt hrátt, þurrar baunir og hafrar þurr. Olía, mjólk út í og afföll við eldun eru ekki talin með.</p></div>
+      <div><h3>Kaloríuhámarkið</h3><p>Sjálfgefið eru aðeins sýndar vörur undir 400 kcal fyrir 30 g prótein. Annars raða ódýrt hveiti, hafrar og pasta sér ofarlega, þó að 30 g af próteini úr þeim kosti yfir 900 kcal.</p></div>
+      <div><h3>Gölluð gögn</h3><p>Sumar tölur úr MCP standast ekki, t.d. hlauphringir með 38 g prótein. Slíkar vörur eru merktar ⚠ og ekki taldar sem bestu kaup.</p></div>
+      <div><h3>Flokkarnir</h3><p>Tegundirnar (kjöt, skyr, duft…) eru dregnar af vöruheitum, ekki flokkum Krónunnar, og geta stöku sinnum skeikað.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer><span>p. Prótein fyrir peninginn</span><span>Gögn: Krónan · <span data-date>26. október 2026</span></span></footer>
+
+<dialog id="detail"><button id="close" class="close" type="button" aria-label="Loka">×</button><div id="detail-body"></div></dialog>
+<script src="app.js" defer></script>
+</body>
+</html>
